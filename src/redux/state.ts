@@ -36,100 +36,107 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebarPage: SidebarPageType
 }
+export type StoreType = {
+    _state: RootStateType
+    addPost: (postMessage: string) => void
+    addNewPostText: (postText: string) => void
+    addMessage: (postMessage: string) => void
+    addNewMessageText: (messageText: string) => void
+    subscribe: (callback: (state: RootStateType) => RootStateType) => void
+}
 
-export let state = {
-    profilePage: {
-        posts: [
-            {
-                message: 'Hi! How Are You?',
-                id: v1(),
-                likesCount: 12,
-            },
-            {
-                message: "It's my first post",
-                id: v1(),
-                likesCount: 12,
-            },
-        ],
-        newPostText: ''
+export let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {
+                    message: 'Hi! How Are You?',
+                    id: v1(),
+                    likesCount: 12,
+                },
+                {
+                    message: "It's my first post",
+                    id: v1(),
+                    likesCount: 12,
+                },
+            ],
+            newPostText: ''
+        },
+        dialogsPage: {
+            dialogs: [
+                {name: 'DK-autochess', id: v1()},
+                {name: 'Jenya', id: v1()},
+                {name: 'Sasha', id: v1()},
+                {name: 'Dima', id: v1()},
+                {name: 'Luidmila', id: v1()},
+                {name: 'Vladimir', id: v1()},
+            ],
+            messages: [
+                {
+                    message: 'Hi! How are you?',
+                    id: v1(),
+                },
+                {
+                    message: 'Hi! Im fine!',
+                    id: v1(),
+                },
+                {
+                    message: 'Hi! good morning',
+                    id: v1(),
+                },
+                {
+                    message: 'Hi! nice to meet you?',
+                    id: v1(),
+                },
+                {
+                    message: 'Oh, Denis. you need help?',
+                    id: v1(),
+                },
+                {
+                    message: 'Good evening mr.Jonhs',
+                    id: v1(),
+                },
+            ],
+            newMessageText: ''
+        },
+        sidebarPage: {
+            myFriends: [
+                {name: 'Dima', id: v1()},
+                {name: 'Artem', id: v1()},
+                {name: 'Jenya', id: v1()},
+            ]
+        }
     },
-    dialogsPage: {
-        dialogs: [
-            {name: 'DK-autochess', id: v1()},
-            {name: 'Jenya', id: v1()},
-            {name: 'Sasha', id: v1()},
-            {name: 'Dima', id: v1()},
-            {name: 'Luidmila', id: v1()},
-            {name: 'Vladimir', id: v1()},
-        ],
-        messages: [
-            {
-                message: 'Hi! How are you?',
-                id: v1(),
-            },
-            {
-                message: 'Hi! Im fine!',
-                id: v1(),
-            },
-            {
-                message: 'Hi! good morning',
-                id: v1(),
-            },
-            {
-                message: 'Hi! nice to meet you?',
-                id: v1(),
-            },
-            {
-                message: 'Oh, Denis. you need help?',
-                id: v1(),
-            },
-            {
-                message: 'Good evening mr.Jonhs',
-                id: v1(),
-            },
-        ],
-        newMessageText: ''
+    addPost(postMessage: string) {
+        const newPost = {
+            id: v1(),
+            message: postMessage,
+            likesCount: 2
+        }
+        store._state.profilePage.posts.push(newPost)
+        render(store._state)
     },
-    sidebarPage: {
-        myFriends: [
-            {name: 'Dima', id: v1()},
-            {name: 'Artem', id: v1()},
-            {name: 'Jenya', id: v1()},
-        ]
-    }
-};
-
-export const addPost = (postMessage: string) => {
-    const newPost = {
-        id: v1(),
-        message: postMessage,
-        likesCount: 2
-    }
-    state.profilePage.posts.push(newPost)
-    render(state)
+    addNewPostText(postText: string) {
+        store._state.profilePage.newPostText = postText
+        render(store._state)
+    },
+    addMessage(postMessage: string) {
+        const newMessage = {
+            id: v1(),
+            message: postMessage,
+            name: 'Denis',
+        }
+        store._state.dialogsPage.messages.push(newMessage)
+        store._state.dialogsPage.dialogs.push(newMessage)
+        render(store._state)
+    },
+    addNewMessageText(messageText: string) {
+        store._state.dialogsPage.newMessageText = messageText
+        render(store._state)
+    },
+    subscribe(callback: (state: RootStateType) => void) {
+        render = callback
+    },
 }
-export const addNewPostText = (postText: string) => {
-    state.profilePage.newPostText = postText
-    render(state)
-}
-export const addMessage = (postMessage: string) => {
-    const newMessage = {
-        id: v1(),
-        message: postMessage,
-        name: 'Denis',
-    }
-    state.dialogsPage.messages.push(newMessage)
-    state.dialogsPage.dialogs.push(newMessage)
-    render(state)
-}
-export const addNewMessageText = (messageText: string) => {
-    state.dialogsPage.newMessageText = messageText
-    render(state)
-}
-
-export const subscribe = (callback: (state: RootStateType) => void) => {
-    render = callback
-}
-
 
 
