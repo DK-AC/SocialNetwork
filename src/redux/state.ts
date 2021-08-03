@@ -1,7 +1,5 @@
 import {v1} from "uuid"
 
-let render = (state: RootStateType) => console.log('render')
-
 export type PostsType = {
     message: string
     id: string
@@ -38,11 +36,13 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
+    getState: () => RootStateType
+    _render: (state: RootStateType) => void
     addPost: (postMessage: string) => void
     addNewPostText: (postText: string) => void
     addMessage: (postMessage: string) => void
     addNewMessageText: (messageText: string) => void
-    subscribe: (callback: (state: RootStateType) => RootStateType) => void
+    subscribe: (observer: (state: RootStateType) => void) => void
 }
 
 export let store: StoreType = {
@@ -107,18 +107,25 @@ export let store: StoreType = {
             ]
         }
     },
+    getState() {
+        return this._state
+    },
+    _render() {
+        console.log('render')
+    },
     addPost(postMessage: string) {
         const newPost = {
             id: v1(),
             message: postMessage,
             likesCount: 2
         }
-        store._state.profilePage.posts.push(newPost)
-        render(store._state)
+        this._state.profilePage.posts.push(newPost)
+        this._render(store._state)
     },
     addNewPostText(postText: string) {
-        store._state.profilePage.newPostText = postText
-        render(store._state)
+
+        this._state.profilePage.newPostText = postText
+        this._render(store._state)
     },
     addMessage(postMessage: string) {
         const newMessage = {
@@ -126,16 +133,17 @@ export let store: StoreType = {
             message: postMessage,
             name: 'Denis',
         }
-        store._state.dialogsPage.messages.push(newMessage)
-        store._state.dialogsPage.dialogs.push(newMessage)
-        render(store._state)
+        this._state.dialogsPage.messages.push(newMessage)
+        this._state.dialogsPage.dialogs.push(newMessage)
+        this._render(store._state)
     },
     addNewMessageText(messageText: string) {
-        store._state.dialogsPage.newMessageText = messageText
-        render(store._state)
+
+        this._state.dialogsPage.newMessageText = messageText
+        this._render(store._state)
     },
-    subscribe(callback: (state: RootStateType) => void) {
-        render = callback
+    subscribe(observer: (state: RootStateType) => void) {
+        this._render = observer
     },
 }
 

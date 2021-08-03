@@ -17,6 +17,7 @@ export function MyPosts(props: MyPostsPropsType) {
               likesCount={p.likesCount}
         />)
 
+
     const [error, serError] = useState<boolean>(false)
 
     const addNewPost = () => {
