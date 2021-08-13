@@ -1,13 +1,12 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {PostsType} from "../../../redux/state";
+import {GeneralTypes, PostsType} from "../../../redux/state";
 import styles from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
-    addPost: (postMessage: string) => void
     newPostText: string
-    addNewPostText: (post: string) => void
+    dispatch: (action: GeneralTypes) => void
 }
 
 export function MyPosts(props: MyPostsPropsType) {
@@ -23,15 +22,19 @@ export function MyPosts(props: MyPostsPropsType) {
     const addNewPost = () => {
         const trimPost = props.newPostText.trim()
         if (trimPost) {
-            props.addPost(props.newPostText)
+            props.dispatch({type: 'ADD-POST', postMessage: props.newPostText})
         } else {
             serError(true)
         }
-        props.addNewPostText('')
+        props.dispatch({type: 'ADD-NEW-POST-TEXT', postText: ''})
     }
 
     const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.addNewPostText(event.currentTarget.value)
+        props.dispatch(
+            {
+                type: 'ADD-NEW-POST-TEXT',
+                postText: event.currentTarget.value
+            })
         serError(false)
     }
 

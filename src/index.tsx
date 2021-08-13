@@ -9,12 +9,9 @@ const rerenderEntireTree = (state: RootStateType) => {
         <React.StrictMode>
             <App
                 state={state}
-                addPost={store.addPost.bind(store)}
+                dispatch={store.dispatch.bind(store)}
                 newPostText={store._state.profilePage.newPostText}
-                addNewPostText={store.addNewPostText.bind(store)}
-                addMessage={store.addMessage.bind(store)}
                 newMessageText={store._state.dialogsPage.newMessageText}
-                addNewMessageText={store.addNewMessageText.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')

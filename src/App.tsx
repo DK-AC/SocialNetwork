@@ -8,26 +8,18 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {RootStateType} from "./redux/state";
+import {GeneralTypes, RootStateType} from "./redux/state";
 import {Friends} from "./Components/Friends/Friends";
 
 type AppPropsType = {
-    // store: StoreType
-    // state: RootStateType
     state: RootStateType
-    addPost: (postMessage: string) => void
-    addMessage: (postMessage: string) => void
     newPostText: string
-    addNewPostText: (postText: string) => void
     newMessageText: string
-    addNewMessageText: (messageText: string) => void
+    dispatch: (action: GeneralTypes) => void
 }
 
 
 const App: React.FC<AppPropsType> = (props) => {
-
-    // const state = props.store.getState()
-
 
     let dialog = props.state.dialogsPage
     let profile = props.state.profilePage
@@ -42,18 +34,16 @@ const App: React.FC<AppPropsType> = (props) => {
                     <Route path='/profile'
                            render={() =>
                                <Profile profilePage={profile}
-                                        addPost={props.addPost}
                                         newPostText={props.newPostText}
-                                        addNewPostText={props.addNewPostText}
+                                        dispatch={props.dispatch}
 
                                />}
                     />
                     <Route path='/dialogs'
                            render={() =>
                                <Dialogs dialogsPage={dialog}
-                                        addMessage={props.addMessage}
                                         newMessageText={props.newMessageText}
-                                        addNewMessageText={props.addNewMessageText}
+                                        dispatch={props.dispatch}
                                />}
                     />
                     <Route path='/news'

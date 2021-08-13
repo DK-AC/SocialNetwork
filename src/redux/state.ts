@@ -38,15 +38,15 @@ export type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
     _render: (state: RootStateType) => void
-    addPost: (postMessage: string) => void
-    addNewPostText: (postText: string) => void
-    addMessage: (postMessage: string) => void
-    addNewMessageText: (messageText: string) => void
     subscribe: (observer: (state: RootStateType) => void) => void
     dispatch: (action: GeneralTypes) => void
 }
 
-type GeneralTypes = AddPostActionType | AddNewPostTextActionType | AddMessageActionType | AddNewPostMessageActionType
+export type GeneralTypes =
+    AddPostActionType
+    | AddNewPostTextActionType
+    | AddMessageActionType
+    | AddNewPostMessageActionType
 
 type AddPostActionType = {
     type: 'ADD-POST'
@@ -134,34 +134,6 @@ export let store: StoreType = {
     _render() {
         console.log('render')
     },
-    addPost(postMessage: string) {
-        const newPost: PostsType = {
-            id: v1(),
-            message: postMessage,
-            likesCount: 2
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._render(store._state)
-    },
-    addNewPostText(postText: string) {
-
-        this._state.profilePage.newPostText = postText
-        this._render(store._state)
-    },
-    addMessage(postMessage: string) {
-        const newMessage = {
-            id: v1(),
-            message: postMessage,
-            name: 'Denis',
-        }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.dialogs.push(newMessage)
-        this._render(store._state)
-    },
-    addNewMessageText(messageText: string) {
-        this._state.dialogsPage.newMessageText = messageText
-        this._render(store._state)
-    },
     subscribe(observer: (state: RootStateType) => void) {
         this._render = observer
     },
@@ -191,7 +163,7 @@ export let store: StoreType = {
                 this._render(store._state)
                 break
             case 'ADD-NEW-MESSAGE-TEXT':
-                this._state.profilePage.newPostText = action.messageText
+                this._state.dialogsPage.newMessageText = action.messageText
                 this._render(store._state)
                 break;
         }

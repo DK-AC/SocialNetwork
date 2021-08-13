@@ -2,14 +2,14 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import styles from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsPageType} from "../../redux/state";
+import {DialogsPageType, GeneralTypes} from "../../redux/state";
+import {log} from "util";
 
 
 type DialogsType = {
     dialogsPage: DialogsPageType
-    addMessage: (postMessage: string) => void
     newMessageText: string
-    addNewMessageText: (messageText: string) => void
+    dispatch: (action: GeneralTypes) => void
 }
 
 export function Dialogs(props: DialogsType) {
@@ -26,15 +26,19 @@ export function Dialogs(props: DialogsType) {
         //Удаляю пробелы
         const trimMessage = props.newMessageText.trim()
         if (trimMessage) {
-            props.addMessage(props.newMessageText)
+            props.dispatch(
+                {type: 'ADD-MESSAGE', postMessage: props.newMessageText})
         } else {
             serError(true)
         }
-        props.addNewMessageText('')
+        props.dispatch({type: 'ADD-NEW-MESSAGE-TEXT', messageText: ''})
     }
 
     const oNMessageChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.addNewMessageText(event.currentTarget.value)
+        console.log(event.currentTarget.value)
+        props.dispatch(
+            {
+                type: 'ADD-NEW-MESSAGE-TEXT', messageText: event.currentTarget.value})
         serError(false)
     }
 
