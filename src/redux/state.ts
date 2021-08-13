@@ -43,7 +43,28 @@ export type StoreType = {
     addMessage: (postMessage: string) => void
     addNewMessageText: (messageText: string) => void
     subscribe: (observer: (state: RootStateType) => void) => void
+    dispatch: (action: GeneralTypes) => void
 }
+
+type GeneralTypes = AddPostActionType | AddNewPostTextActionType | AddMessageActionType | AddNewPostMessageActionType
+
+type AddPostActionType = {
+    type: 'ADD-POST'
+    postMessage: string
+}
+type AddNewPostTextActionType = {
+    type: 'ADD-NEW-POST-TEXT'
+    postText: string
+}
+type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+    postMessage: string
+}
+type AddNewPostMessageActionType = {
+    type: 'ADD-NEW-MESSAGE-TEXT'
+    messageText: string
+}
+
 
 export let store: StoreType = {
     _state: {
@@ -114,7 +135,7 @@ export let store: StoreType = {
         console.log('render')
     },
     addPost(postMessage: string) {
-        const newPost = {
+        const newPost: PostsType = {
             id: v1(),
             message: postMessage,
             likesCount: 2
@@ -138,13 +159,41 @@ export let store: StoreType = {
         this._render(store._state)
     },
     addNewMessageText(messageText: string) {
-
         this._state.dialogsPage.newMessageText = messageText
         this._render(store._state)
     },
     subscribe(observer: (state: RootStateType) => void) {
         this._render = observer
     },
+    dispatch(action: GeneralTypes) {
+        switch (action.type) {
+            case 'ADD-POST':
+                const newPost: PostsType = {
+                    id: v1(),
+                    message: action.postMessage,
+                    likesCount: 2
+                }
+                this._state.profilePage.posts = [...this._state.profilePage.posts, newPost]
+                this._render(store._state)
+                break;
+            case 'ADD-NEW-POST-TEXT':
+                this._state.profilePage.newPostText = action.postText
+                this._render(store._state)
+                break;
+            case 'ADD-MESSAGE':
+                const newMessage = {
+                    id: v1(),
+                    message: action.postMessage,
+                    name: 'Denis',
+                }
+                this._state.dialogsPage.messages.push(newMessage)
+                this._state.dialogsPage.dialogs.push(newMessage)
+                this._render(store._state)
+                break
+            case 'ADD-NEW-MESSAGE-TEXT':
+                this._state.profilePage.newPostText = action.messageText
+                this._render(store._state)
+                break;
+        }
+    }
 }
-
-

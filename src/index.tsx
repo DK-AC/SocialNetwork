@@ -9,8 +9,6 @@ const rerenderEntireTree = (state: RootStateType) => {
         <React.StrictMode>
             <App
                 state={state}
-                 // store={store}
-                // state={store.getState()}
                 addPost={store.addPost.bind(store)}
                 newPostText={store._state.profilePage.newPostText}
                 addNewPostText={store.addNewPostText.bind(store)}
@@ -24,7 +22,6 @@ const rerenderEntireTree = (state: RootStateType) => {
 }
 
 rerenderEntireTree(store.getState())
-
 store.subscribe(rerenderEntireTree)
 
 

@@ -50,11 +50,10 @@ export function MyPosts(props: MyPostsPropsType) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea
-                        value={props.newPostText}
-                        onChange={onPostChangeHandler}
-                        onKeyPress={onKeyHandler}
-                        className={error ? styles.error : ''}
+                    <textarea value={props.newPostText}
+                              onChange={onPostChangeHandler}
+                              onKeyPress={onKeyHandler}
+                              className={error ? styles.error : ''}
                     />
 
                 </div>
