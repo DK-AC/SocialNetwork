@@ -1,6 +1,6 @@
 import {v1} from "uuid"
-import profileReducer from "./profileReducer";
-import dialogsReducer from "./dialogsReducer";
+import profileReducer, {addNewPostTextAC, addPostAC} from "./profileReducer";
+import dialogsReducer, {addMessageAC, addNewPostMessageAC} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 
 export type PostsType = {
@@ -50,12 +50,6 @@ export type GeneralTypes =
     | ReturnType<typeof addNewPostTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addNewPostMessageAC>
-
-export const addPostAC = (postMessage: string) => ({type: 'ADD-POST', postMessage} as const)
-export const addNewPostTextAC = (postText: string) => ({type: 'ADD-NEW-POST-TEXT', postText} as const)
-export const addMessageAC = (postMessage: string) => ({type: "ADD-MESSAGE", postMessage} as const)
-export const addNewPostMessageAC = (messageText: string) => (
-    {type: "ADD-NEW-MESSAGE-TEXT", messageText} as const)
 
 
 export let store: StoreType = {
