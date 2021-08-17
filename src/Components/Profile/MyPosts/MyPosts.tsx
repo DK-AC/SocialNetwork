@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {GeneralTypes, PostsType} from "../../../redux/state";
+import {addNewPostTextAC, addPostAC, GeneralTypes, PostsType} from "../../../redux/state";
 import styles from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 
@@ -22,19 +22,16 @@ export function MyPosts(props: MyPostsPropsType) {
     const addNewPost = () => {
         const trimPost = props.newPostText.trim()
         if (trimPost) {
-            props.dispatch({type: 'ADD-POST', postMessage: props.newPostText})
+            props.dispatch(addPostAC(props.newPostText))
         } else {
             serError(true)
         }
-        props.dispatch({type: 'ADD-NEW-POST-TEXT', postText: ''})
+        props.dispatch(addNewPostTextAC(''))
     }
 
     const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         props.dispatch(
-            {
-                type: 'ADD-NEW-POST-TEXT',
-                postText: event.currentTarget.value
-            })
+            addNewPostTextAC(event.currentTarget.value))
         serError(false)
     }
 
@@ -54,6 +51,7 @@ export function MyPosts(props: MyPostsPropsType) {
             <div>
                 <div>
                     <textarea value={props.newPostText}
+                              placeholder={'enter your message'}
                               onChange={onPostChangeHandler}
                               onKeyPress={onKeyHandler}
                               className={error ? styles.error : ''}

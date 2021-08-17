@@ -52,19 +52,33 @@ type AddPostActionType = {
     type: 'ADD-POST'
     postMessage: string
 }
+export const addPostAC = (postMessage: string): AddPostActionType => {
+    return {type: 'ADD-POST', postMessage}
+}
+
 type AddNewPostTextActionType = {
     type: 'ADD-NEW-POST-TEXT'
     postText: string
 }
+export const addNewPostTextAC = (postText: string): AddNewPostTextActionType => {
+    return {type: 'ADD-NEW-POST-TEXT', postText}
+}
+
 type AddMessageActionType = {
     type: 'ADD-MESSAGE'
     postMessage: string
 }
+export const addMessageAC = (postMessage: string): AddMessageActionType => {
+    return {type: "ADD-MESSAGE", postMessage}
+}
+
 type AddNewPostMessageActionType = {
     type: 'ADD-NEW-MESSAGE-TEXT'
     messageText: string
 }
-
+export const addNewPostMessageAC = (messageText: string): AddNewPostMessageActionType => {
+    return {type: "ADD-NEW-MESSAGE-TEXT", messageText}
+}
 
 export let store: StoreType = {
     _state: {

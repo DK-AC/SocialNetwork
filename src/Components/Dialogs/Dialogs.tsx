@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import styles from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsPageType, GeneralTypes} from "../../redux/state";
+import {addMessageAC, addNewPostMessageAC, DialogsPageType, GeneralTypes} from "../../redux/state";
 import {log} from "util";
 
 
@@ -26,19 +26,16 @@ export function Dialogs(props: DialogsType) {
         //Удаляю пробелы
         const trimMessage = props.newMessageText.trim()
         if (trimMessage) {
-            props.dispatch(
-                {type: 'ADD-MESSAGE', postMessage: props.newMessageText})
+            props.dispatch(addMessageAC(props.newMessageText))
         } else {
             serError(true)
         }
-        props.dispatch({type: 'ADD-NEW-MESSAGE-TEXT', messageText: ''})
+        props.dispatch(addNewPostMessageAC(''))
     }
 
     const oNMessageChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         console.log(event.currentTarget.value)
-        props.dispatch(
-            {
-                type: 'ADD-NEW-MESSAGE-TEXT', messageText: event.currentTarget.value})
+        props.dispatch(addNewPostMessageAC(event.currentTarget.value))
         serError(false)
     }
 
@@ -62,6 +59,7 @@ export function Dialogs(props: DialogsType) {
                 <div>
                     <textarea
                         value={props.newMessageText}
+                        placeholder={'enter your message'}
                         onChange={oNMessageChangeHandler}
                         onKeyPress={onKeyHandler}
                         className={error ? styles.error : ''}
