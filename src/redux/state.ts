@@ -43,42 +43,17 @@ export type StoreType = {
 }
 
 export type GeneralTypes =
-    AddPostActionType
-    | AddNewPostTextActionType
-    | AddMessageActionType
-    | AddNewPostMessageActionType
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof addNewPostTextAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof addNewPostMessageAC>
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-    postMessage: string
-}
-export const addPostAC = (postMessage: string): AddPostActionType => {
-    return {type: 'ADD-POST', postMessage}
-}
+export const addPostAC = (postMessage: string) => ({type: 'ADD-POST', postMessage} as const)
+export const addNewPostTextAC = (postText: string) => ({type: 'ADD-NEW-POST-TEXT', postText} as const)
+export const addMessageAC = (postMessage: string) => ({type: "ADD-MESSAGE", postMessage} as const)
+export const addNewPostMessageAC = (messageText: string) => (
+    {type: "ADD-NEW-MESSAGE-TEXT", messageText} as const)
 
-type AddNewPostTextActionType = {
-    type: 'ADD-NEW-POST-TEXT'
-    postText: string
-}
-export const addNewPostTextAC = (postText: string): AddNewPostTextActionType => {
-    return {type: 'ADD-NEW-POST-TEXT', postText}
-}
-
-type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-    postMessage: string
-}
-export const addMessageAC = (postMessage: string): AddMessageActionType => {
-    return {type: "ADD-MESSAGE", postMessage}
-}
-
-type AddNewPostMessageActionType = {
-    type: 'ADD-NEW-MESSAGE-TEXT'
-    messageText: string
-}
-export const addNewPostMessageAC = (messageText: string): AddNewPostMessageActionType => {
-    return {type: "ADD-NEW-MESSAGE-TEXT", messageText}
-}
 
 export let store: StoreType = {
     _state: {

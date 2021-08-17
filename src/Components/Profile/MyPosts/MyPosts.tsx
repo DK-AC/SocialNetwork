@@ -30,8 +30,7 @@ export function MyPosts(props: MyPostsPropsType) {
     }
 
     const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(
-            addNewPostTextAC(event.currentTarget.value))
+        props.dispatch(addNewPostTextAC(event.currentTarget.value))
         serError(false)
     }
 
