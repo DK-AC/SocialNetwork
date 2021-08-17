@@ -1,4 +1,7 @@
 import {v1} from "uuid"
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
 
 export type PostsType = {
     message: string
@@ -127,34 +130,11 @@ export let store: StoreType = {
         this._render = observer
     },
     dispatch(action: GeneralTypes) {
-        switch (action.type) {
-            case 'ADD-POST':
-                const newPost: PostsType = {
-                    id: v1(),
-                    message: action.postMessage,
-                    likesCount: 2
-                }
-                this._state.profilePage.posts = [...this._state.profilePage.posts, newPost]
-                this._render(store._state)
-                break;
-            case 'ADD-NEW-POST-TEXT':
-                this._state.profilePage.newPostText = action.postText
-                this._render(store._state)
-                break;
-            case 'ADD-MESSAGE':
-                const newMessage = {
-                    id: v1(),
-                    message: action.postMessage,
-                    name: 'Denis',
-                }
-                this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.dialogs.push(newMessage)
-                this._render(store._state)
-                break
-            case 'ADD-NEW-MESSAGE-TEXT':
-                this._state.dialogsPage.newMessageText = action.messageText
-                this._render(store._state)
-                break;
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebarPage = sidebarReducer(this._state.sidebarPage, action)
+
+        this._render(store._state)
     }
+
 }
