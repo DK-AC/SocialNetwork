@@ -1,37 +1,8 @@
 import {v1} from "uuid"
-import profileReducer, {addNewPostTextAC, addPostAC} from "./profileReducer";
-import dialogsReducer, {addMessageAC, addNewPostMessageAC} from "./dialogsReducer";
-import sidebarReducer from "./sidebarReducer";
+import profileReducer, {addNewPostTextAC, addPostAC, ProfilePageType} from "./profileReducer";
+import dialogsReducer, {addMessageAC, addNewPostMessageAC, DialogsPageType} from "./dialogsReducer";
+import sidebarReducer, {SidebarPageType} from "./sidebarReducer";
 
-export type PostsType = {
-    message: string
-    id: string
-    likesCount: number
-}
-type DialogsType = {
-    name: string
-    id: string
-}
-type MessagesType = {
-    message: string
-    id: string
-}
-type MyFriendsType = {
-    name: string
-    id: string
-}
-export type SidebarPageType = {
-    myFriends: Array<MyFriendsType>
-}
-export type ProfilePageType = {
-    posts: Array<PostsType>
-    newPostText: string
-}
-export type DialogsPageType = {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
-    newMessageText: string
-}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType

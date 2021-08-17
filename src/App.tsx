@@ -8,22 +8,21 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {GeneralTypes, RootStateType} from "./redux/state";
+import {GeneralTypes} from "./redux/store";
 import {Friends} from "./Components/Friends/Friends";
+import {AppStateType} from "./redux/redux-store";
 
 type AppPropsType = {
-    state: RootStateType
-    newPostText: string
-    newMessageText: string
+    state: AppStateType
     dispatch: (action: GeneralTypes) => void
 }
 
 
 const App: React.FC<AppPropsType> = (props) => {
 
-    let dialog = props.state.dialogsPage
-    let profile = props.state.profilePage
-    let sidebar = props.state.sidebarPage
+    let dialog = props.state.dialogsReducer
+    let profile = props.state.profileReducer
+    let sidebar = props.state.sidebarReducer
 
     return (
         <BrowserRouter>
@@ -33,16 +32,14 @@ const App: React.FC<AppPropsType> = (props) => {
                 <div className="app-wrapper-content">
                     <Route path='/profile'
                            render={() =>
-                               <Profile profilePage={profile}
-                                        newPostText={props.newPostText}
+                               <Profile profile={profile}
                                         dispatch={props.dispatch}
-
                                />}
                     />
                     <Route path='/dialogs'
                            render={() =>
                                <Dialogs dialogsPage={dialog}
-                                        newMessageText={props.newMessageText}
+                                        newMessageText={props.state.dialogsReducer.newMessageText}
                                         dispatch={props.dispatch}
                                />}
                     />

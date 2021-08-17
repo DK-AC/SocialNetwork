@@ -1,12 +1,12 @@
 import React from "react";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {GeneralTypes, ProfilePageType} from "../../redux/state";
+import {GeneralTypes,} from "../../redux/store";
+import {ProfilePageType} from "../../redux/profileReducer";
 
 
 type ProfileType = {
-    profilePage: ProfilePageType
-    newPostText: string
+    profile: ProfilePageType
     dispatch: (action: GeneralTypes) => void
 
 }
@@ -16,8 +16,8 @@ export function Profile(props: ProfileType) {
         <div>
             <ProfileInfo/>
             <MyPosts
-                posts={props.profilePage.posts}
-                newPostText={props.newPostText}
+                posts={props.profile.posts}
+                newPostText={props.profile.newPostText}
                 dispatch={props.dispatch}
             />
         </div>
