@@ -11,6 +11,7 @@ import {GeneralTypes} from "./redux/store";
 import {Friends} from "./Components/Friends/Friends";
 import {AppStateType, AppStoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
+import {StoreContext} from "./StoreContext";
 
 type AppPropsType = {
     state: AppStateType
@@ -25,36 +26,38 @@ const App: React.FC<AppPropsType> = (props) => {
 
     return (
         <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Route path='/profile'
-                           render={() =>
-                               <Profile store={props.store}/>}
-                    />
-                    <Route path='/dialogs'
-                           render={() =>
-                               <DialogsContainer store={props.store}/>}
-                    />
-                    <Route path='/news'
-                           render={() =>
-                               <News/>}
-                    />
-                    <Route path='/music'
-                           render={() =>
-                               <Music/>}
-                    />
-                    <Route path='/settings'
-                           render={() =>
-                               <Settings/>}
-                    />
-                    <Route path='/settings'
-                           render={() =>
-                               <Friends sidebarPage={sidebar}/>}
-                    />
+            <StoreContext.Provider value={props.store}>
+                <div className="app-wrapper">
+                    <Header/>
+                    <Navbar/>
+                    <div className="app-wrapper-content">
+                        <Route path='/profile'
+                               render={() =>
+                                   <Profile />}
+                        />
+                        <Route path='/dialogs'
+                               render={() =>
+                                   <DialogsContainer />}
+                        />
+                        <Route path='/news'
+                               render={() =>
+                                   <News/>}
+                        />
+                        <Route path='/music'
+                               render={() =>
+                                   <Music/>}
+                        />
+                        <Route path='/settings'
+                               render={() =>
+                                   <Settings/>}
+                        />
+                        <Route path='/settings'
+                               render={() =>
+                                   <Friends sidebarPage={sidebar}/>}
+                        />
+                    </div>
                 </div>
-            </div>
+            </StoreContext.Provider>
         </BrowserRouter>
     );
 }
