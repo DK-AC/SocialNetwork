@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styles from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import {PostsType} from "../../../redux/profileReducer";
-import {TextareaForMyPosts} from "./Textarea";
+import {TextareaForMyPosts} from "./TextareaForMyPosts";
 
 type MyPostsPropsType = {
     posts: Array<PostsType>

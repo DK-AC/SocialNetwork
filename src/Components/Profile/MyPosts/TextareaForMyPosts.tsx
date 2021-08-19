@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import styles from "./MyPosts.module.css";
 
-type TextareaPropsType = {
+type TextareaMyPostsPropsType = {
     error: boolean
     setError: (error: boolean) => void
     newPostText: string
@@ -9,7 +9,7 @@ type TextareaPropsType = {
     updateNewPostText: (text: string) => void
 }
 
-export const TextareaForMyPosts = (props: TextareaPropsType) => {
+export const TextareaForMyPosts = (props: TextareaMyPostsPropsType) => {
 
     const onPostChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewPostText(event.currentTarget.value)

@@ -1,8 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {useState} from "react";
 import styles from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPageType} from "../../redux/dialogsReducer";
+import {TextareaForDialogs} from "./TextareaForDialogs";
 
 
 type DialogsType = {
@@ -13,7 +14,7 @@ type DialogsType = {
 
 export function Dialogs(props: DialogsType) {
 
-    const [error, serError] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false)
 
     let dialogsElements = props.dialogsPage.dialogs
         .map((d) => <DialogItem key={d.id} id={d.id} name={d.name}/>)
@@ -27,18 +28,9 @@ export function Dialogs(props: DialogsType) {
         if (trimMessage) {
             props.addNewMessage(props.dialogsPage.newMessageText)
         } else {
-            serError(true)
+            setError(true)
         }
         props.updateNewPostMessage('')
-    }
-
-    const onNewMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostMessage(event.currentTarget.value)
-        serError(false)
-    }
-
-    const onKeyHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter') onAddNewMessage()
     }
 
     //если в инпут ни чего не ввели выведу ошибку
@@ -55,12 +47,12 @@ export function Dialogs(props: DialogsType) {
             <div className={styles.messages}>
                 {messagesElements}
                 <div>
-                    <textarea
-                        value={props.dialogsPage.newMessageText}
-                        placeholder={'enter your message'}
-                        onChange={onNewMessageChange}
-                        onKeyPress={onKeyHandler}
-                        className={error ? styles.error : ''}
+                    <TextareaForDialogs
+                        error={error}
+                        setError={setError}
+                        newMessageText={props.dialogsPage.newMessageText}
+                        addNewMessage={onAddNewMessage}
+                        updateNewPostMessage={props.updateNewPostMessage}
                     />
                 </div>
                 <div>
