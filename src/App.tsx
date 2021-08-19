@@ -10,11 +10,12 @@ import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {GeneralTypes} from "./redux/store";
 import {Friends} from "./Components/Friends/Friends";
-import {AppStateType} from "./redux/redux-store";
+import {AppStateType, AppStoreType} from "./redux/redux-store";
 
 type AppPropsType = {
     state: AppStateType
     dispatch: (action: GeneralTypes) => void
+    store:AppStoreType
 }
 
 
@@ -34,6 +35,7 @@ const App: React.FC<AppPropsType> = (props) => {
                            render={() =>
                                <Profile profile={profile}
                                         dispatch={props.dispatch}
+                                        store={props.store}
                                />}
                     />
                     <Route path='/dialogs'

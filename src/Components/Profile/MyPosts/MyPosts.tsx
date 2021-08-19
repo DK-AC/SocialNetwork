@@ -1,13 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {GeneralTypes} from "../../../redux/store";
 import styles from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {addNewPostTextAC, addPostAC, PostsType} from "../../../redux/profileReducer";
+import {PostsType} from "../../../redux/profileReducer";
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
     newPostText: string
-    dispatch: (action: GeneralTypes) => void
+    updateNewPostText: (text: string) => void
+    addNewPost: (newPostText: string) => void
 }
 
 export function MyPosts(props: MyPostsPropsType) {
@@ -20,23 +20,23 @@ export function MyPosts(props: MyPostsPropsType) {
 
     const [error, serError] = useState<boolean>(false)
 
-    const addNewPost = () => {
+    const onAddNewPost = () => {
         const trimPost = props.newPostText.trim()
         if (trimPost) {
-            props.dispatch(addPostAC(props.newPostText))
+            props.addNewPost(props.newPostText)
         } else {
             serError(true)
         }
-        props.dispatch(addNewPostTextAC(''))
+        props.updateNewPostText('')
     }
 
-    const onPostChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(addNewPostTextAC(event.currentTarget.value))
+    const onPostChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(event.currentTarget.value)
         serError(false)
     }
 
-    const onKeyHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter') addNewPost()
+    const onKeyPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter') onAddNewPost()
     }
 
     //если в инпут ни чего не ввели выведу ошибку
@@ -52,14 +52,13 @@ export function MyPosts(props: MyPostsPropsType) {
                 <div>
                     <textarea value={props.newPostText}
                               placeholder={'enter your message'}
-                              onChange={onPostChangeHandler}
-                              onKeyPress={onKeyHandler}
+                              onChange={onPostChange}
+                              onKeyPress={onKeyPress}
                               className={error ? styles.error : ''}
                     />
-
                 </div>
                 <div>
-                    <button onClick={addNewPost}>
+                    <button onClick={onAddNewPost}>
                         Add post
                     </button>
                 </div>
