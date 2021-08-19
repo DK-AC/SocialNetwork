@@ -4,8 +4,8 @@ import {MyPosts} from "./MyPosts";
 import {AppStoreType} from "../../../redux/redux-store";
 
 type MyPostsPropsType = {
+    store: AppStoreType
     newPostText: string
-    store:AppStoreType
 }
 
 export function MyPostsContainer(props: MyPostsPropsType) {
@@ -16,7 +16,6 @@ export function MyPostsContainer(props: MyPostsPropsType) {
 
     const onPostChange = (text: string) => {
         props.store.dispatch(addNewPostTextAC(text))
-
     }
 
     return (

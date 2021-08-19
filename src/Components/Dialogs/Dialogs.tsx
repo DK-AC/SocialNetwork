@@ -2,14 +2,13 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import styles from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {GeneralTypes} from "../../redux/store";
-import {addMessageAC, addNewPostMessageAC, DialogsPageType} from "../../redux/dialogsReducer";
+import {DialogsPageType} from "../../redux/dialogsReducer";
 
 
 type DialogsType = {
     dialogsPage: DialogsPageType
-    newMessageText: string
-    dispatch: (action: GeneralTypes) => void
+    addNewMessage: (newMessageText: string) => void
+    updateNewPostMessage: (message: string) => void
 }
 
 export function Dialogs(props: DialogsType) {
@@ -22,25 +21,24 @@ export function Dialogs(props: DialogsType) {
     let messagesElements = props.dialogsPage.messages
         .map((m) => <Message key={m.id} id={m.id} message={m.message}/>)
 
-    const addNewMessage = () => {
+    const onAddNewMessage = () => {
         //Удаляю пробелы
-        const trimMessage = props.newMessageText.trim()
+        const trimMessage = props.dialogsPage.newMessageText.trim()
         if (trimMessage) {
-            props.dispatch(addMessageAC(props.newMessageText))
+            props.addNewMessage(props.dialogsPage.newMessageText)
         } else {
             serError(true)
         }
-        props.dispatch(addNewPostMessageAC(''))
+        props.updateNewPostMessage('')
     }
 
-    const oNMessageChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        console.log(event.currentTarget.value)
-        props.dispatch(addNewPostMessageAC(event.currentTarget.value))
+    const onNewMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostMessage(event.currentTarget.value)
         serError(false)
     }
 
     const onKeyHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter') addNewMessage()
+        if (event.key === 'Enter') onAddNewMessage()
     }
 
     //если в инпут ни чего не ввели выведу ошибку
@@ -58,15 +56,15 @@ export function Dialogs(props: DialogsType) {
                 {messagesElements}
                 <div>
                     <textarea
-                        value={props.newMessageText}
+                        value={props.dialogsPage.newMessageText}
                         placeholder={'enter your message'}
-                        onChange={oNMessageChangeHandler}
+                        onChange={onNewMessageChange}
                         onKeyPress={onKeyHandler}
                         className={error ? styles.error : ''}
                     />
                 </div>
                 <div>
-                    <button onClick={addNewMessage}>
+                    <button onClick={onAddNewMessage}>
                         Add message
                     </button>
                     {/*Вставляю ошибку*/}

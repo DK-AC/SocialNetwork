@@ -3,7 +3,6 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
-import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
@@ -11,18 +10,17 @@ import {Settings} from "./Components/Settings/Settings";
 import {GeneralTypes} from "./redux/store";
 import {Friends} from "./Components/Friends/Friends";
 import {AppStateType, AppStoreType} from "./redux/redux-store";
+import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     state: AppStateType
     dispatch: (action: GeneralTypes) => void
-    store:AppStoreType
+    store: AppStoreType
 }
 
 
 const App: React.FC<AppPropsType> = (props) => {
 
-    let dialog = props.state.dialogsReducer
-    let profile = props.state.profileReducer
     let sidebar = props.state.sidebarReducer
 
     return (
@@ -33,17 +31,11 @@ const App: React.FC<AppPropsType> = (props) => {
                 <div className="app-wrapper-content">
                     <Route path='/profile'
                            render={() =>
-                               <Profile profile={profile}
-                                        dispatch={props.dispatch}
-                                        store={props.store}
-                               />}
+                               <Profile store={props.store}/>}
                     />
                     <Route path='/dialogs'
                            render={() =>
-                               <Dialogs dialogsPage={dialog}
-                                        newMessageText={props.state.dialogsReducer.newMessageText}
-                                        dispatch={props.dispatch}
-                               />}
+                               <DialogsContainer store={props.store}/>}
                     />
                     <Route path='/news'
                            render={() =>

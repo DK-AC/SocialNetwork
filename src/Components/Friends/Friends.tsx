@@ -6,11 +6,9 @@ type SidebarType = {
 }
 
 export function Friends(props: SidebarType) {
-    let sidebarElements = props.sidebarPage.myFriends[1].name
 
     return (
         <div>
-            {sidebarElements}
         </div>
     )
 }

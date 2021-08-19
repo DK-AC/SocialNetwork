@@ -6,8 +6,8 @@ import {PostsType} from "../../../redux/profileReducer";
 type MyPostsPropsType = {
     posts: Array<PostsType>
     newPostText: string
-    updateNewPostText: (text: string) => void
     addNewPost: (newPostText: string) => void
+    updateNewPostText: (text: string) => void
 }
 
 export function MyPosts(props: MyPostsPropsType) {
