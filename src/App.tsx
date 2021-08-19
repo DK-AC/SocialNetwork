@@ -7,33 +7,21 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {GeneralTypes} from "./redux/store";
 import {Friends} from "./Components/Friends/Friends";
-import {AppStateType, AppStoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
-import {StoreContext} from "./StoreContext";
-
-type AppPropsType = {
-    state: AppStateType
-    dispatch: (action: GeneralTypes) => void
-    store: AppStoreType
-}
 
 
-const App: React.FC<AppPropsType> = (props) => {
-
-    let sidebar = props.state.sidebarReducer
+const App = () => {
 
     return (
         <BrowserRouter>
-            <StoreContext.Provider value={props.store}>
                 <div className="app-wrapper">
                     <Header/>
                     <Navbar/>
                     <div className="app-wrapper-content">
                         <Route path='/profile'
                                render={() =>
-                                   <Profile />}
+                                   <Profile/>}
                         />
                         <Route path='/dialogs'
                                render={() =>
@@ -53,11 +41,10 @@ const App: React.FC<AppPropsType> = (props) => {
                         />
                         <Route path='/settings'
                                render={() =>
-                                   <Friends sidebarPage={sidebar}/>}
+                                   <Friends/>}
                         />
                     </div>
                 </div>
-            </StoreContext.Provider>
         </BrowserRouter>
     );
 }

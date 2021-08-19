@@ -1,11 +1,11 @@
 import {v1} from "uuid"
 import profileReducer, {addNewPostTextAC, addPostAC, ProfilePageType} from "./profileReducer";
-import dialogsReducer, {addMessageAC, addNewPostMessageAC, DialogsPageType} from "./dialogsReducer";
+import dialogsReducer, {addMessageAC, addNewPostMessageAC, MessagesPageType} from "./dialogsReducer";
 import sidebarReducer, {SidebarPageType} from "./sidebarReducer";
 
 export type RootStateType = {
     profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
+    dialogsPage: MessagesPageType
     sidebarPage: SidebarPageType
 }
 export type StoreType = {

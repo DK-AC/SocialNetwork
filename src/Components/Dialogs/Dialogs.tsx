@@ -2,31 +2,33 @@ import React, {useState} from "react";
 import styles from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsPageType} from "../../redux/dialogsReducer";
+import {DialogsType, MessagesType,} from "../../redux/dialogsReducer";
 import {TextareaForDialogs} from "./TextareaForDialogs";
 
 
-type DialogsType = {
-    dialogsPage: DialogsPageType
-    addNewMessage: (newMessageText: string) => void
+type PropsType = {
+    dialogs: DialogsType[]
+    messages: MessagesType[]
+    newMessageText: string
+    addNewMessage: (postMessage:string) => void
     updateNewPostMessage: (message: string) => void
 }
 
-export function Dialogs(props: DialogsType) {
+export function Dialogs(props: PropsType) {
 
     const [error, setError] = useState<boolean>(false)
 
-    let dialogsElements = props.dialogsPage.dialogs
+    let dialogsElements = props.dialogs
         .map((d) => <DialogItem key={d.id} id={d.id} name={d.name}/>)
 
-    let messagesElements = props.dialogsPage.messages
+    let messagesElements = props.messages
         .map((m) => <Message key={m.id} id={m.id} message={m.message}/>)
 
     const onAddNewMessage = () => {
         //Удаляю пробелы
-        const trimMessage = props.dialogsPage.newMessageText.trim()
+        const trimMessage = props.newMessageText.trim()
         if (trimMessage) {
-            props.addNewMessage(props.dialogsPage.newMessageText)
+            props.addNewMessage(props.newMessageText)
         } else {
             setError(true)
         }
@@ -50,7 +52,7 @@ export function Dialogs(props: DialogsType) {
                     <TextareaForDialogs
                         error={error}
                         setError={setError}
-                        newMessageText={props.dialogsPage.newMessageText}
+                        newMessageText={props.newMessageText}
                         addNewMessage={onAddNewMessage}
                         updateNewPostMessage={props.updateNewPostMessage}
                     />

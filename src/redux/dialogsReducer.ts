@@ -1,17 +1,17 @@
 import {GeneralTypes} from "./store";
 import {v1} from "uuid";
 
-export type DialogsPageType = {
+export type MessagesPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageText: string
 }
 
-type DialogsType = {
+export type DialogsType = {
     name: string
     id: string
 }
-type MessagesType = {
+export type MessagesType = {
     message: string
     id: string
 }
@@ -55,7 +55,7 @@ let initialState = {
 }
 
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: GeneralTypes) => {
+const dialogsReducer = (state: MessagesPageType = initialState, action: GeneralTypes) => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessage = {
@@ -63,19 +63,24 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: GeneralTy
                 message: action.postMessage,
                 name: 'Denis',
             }
-            state.messages.push(newMessage)
-            state.dialogs.push(newMessage)
-            break;
+            return {
+                ...state,
+                dialogs: [...state.dialogs, newMessage],
+                messages:[...state.messages,newMessage]
+
+            }
         case 'ADD-NEW-MESSAGE-TEXT':
             state.newMessageText = action.messageText
-            break;
+            return {
+                ...state, newMessageText: action.messageText
+            }
         default:
             return state
     }
     return state
 }
 
-export const addMessageAC = (postMessage: string) => ({type: "ADD-MESSAGE", postMessage} as const)
+export const addMessageAC = (postMessage:string) => ({type: "ADD-MESSAGE", postMessage} as const)
 export const addNewPostMessageAC = (messageText: string) => (
     {type: "ADD-NEW-MESSAGE-TEXT", messageText} as const)
 
