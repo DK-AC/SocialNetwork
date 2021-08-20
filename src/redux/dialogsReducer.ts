@@ -1,5 +1,5 @@
-import {GeneralTypes} from "./store";
 import {v1} from "uuid";
+import {GeneralTypes} from "./redux-store";
 
 export type MessagesPageType = {
     dialogs: Array<DialogsType>

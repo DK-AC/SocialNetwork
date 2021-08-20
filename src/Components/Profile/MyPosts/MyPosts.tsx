@@ -3,7 +3,6 @@ import styles from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import {PostsType} from "../../../redux/profileReducer";
 import {TextareaForMyPosts} from "./TextareaForMyPosts";
-import {log} from "util";
 
 type PropsType = {
     posts: Array<PostsType>

@@ -1,26 +1,8 @@
 import {v1} from "uuid"
-import profileReducer, {addNewPostTextAC, addPostAC, ProfilePageType} from "./profileReducer";
-import dialogsReducer, {addMessageAC, addNewPostMessageAC, MessagesPageType} from "./dialogsReducer";
-import sidebarReducer, {SidebarPageType} from "./sidebarReducer";
-
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: MessagesPageType
-    sidebarPage: SidebarPageType
-}
-export type StoreType = {
-    _state: RootStateType
-    getState: () => RootStateType
-    _render: (state: RootStateType) => void
-    subscribe: (observer: (state: RootStateType) => void) => void
-    dispatch: (action: GeneralTypes) => void
-}
-
-export type GeneralTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof addNewPostTextAC>
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof addNewPostMessageAC>
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
+import {GeneralTypes, RootStateType, StoreType} from "./redux-store";
 
 
 export let store: StoreType = {

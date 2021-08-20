@@ -25,6 +25,9 @@ export function Navbar() {
             <div className={styles.item}>
                 <NavLink to="/friends" activeClassName={styles.activeLink}>Friends</NavLink>
             </div>
+            <div className={styles.item}>
+                <NavLink to="/users" activeClassName={styles.activeLink}>Users</NavLink>
+            </div>
         </div>
     )
 }
