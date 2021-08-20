@@ -41,15 +41,12 @@ const profileReducer = (state: ProfilePageType = initialState, action: GeneralTy
                 ...state, posts: [...state.posts, newPost]
             }
         case'ADD-NEW-POST-TEXT':
-
             return {
                 ...state, newPostText: action.postText
             }
-
         default:
             return state
     }
-    return state
 }
 
 export const addPostAC = (postMessage: string) => ({type: 'ADD-POST', postMessage} as const)

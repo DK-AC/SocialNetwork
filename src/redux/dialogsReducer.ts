@@ -58,15 +58,13 @@ let initialState = {
 const dialogsReducer = (state: MessagesPageType = initialState, action: GeneralTypes) => {
     switch (action.type) {
         case 'ADD-MESSAGE':
-            const newMessage = {
+            const newMessage: MessagesType = {
                 id: v1(),
                 message: action.postMessage,
-                name: 'Denis',
             }
             return {
                 ...state,
-                dialogs: [...state.dialogs, newMessage],
-                messages:[...state.messages,newMessage]
+                messages: [...state.messages, newMessage]
 
             }
         case 'ADD-NEW-MESSAGE-TEXT':
@@ -77,10 +75,9 @@ const dialogsReducer = (state: MessagesPageType = initialState, action: GeneralT
         default:
             return state
     }
-    return state
 }
 
-export const addMessageAC = (postMessage:string) => ({type: "ADD-MESSAGE", postMessage} as const)
+export const addMessageAC = (postMessage: string) => ({type: "ADD-MESSAGE", postMessage} as const)
 export const addNewPostMessageAC = (messageText: string) => (
     {type: "ADD-NEW-MESSAGE-TEXT", messageText} as const)
 
