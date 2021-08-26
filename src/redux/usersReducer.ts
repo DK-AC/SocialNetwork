@@ -1,12 +1,12 @@
 import {GeneralTypes} from "./redux-store";
 
 export type UserType = {
-    id: string
-    photoURL: string
+    id: number
+    photos: { small: string, large: string }
     followed: boolean
-    fullName: string
+    name: string
     status: string
-    location: { country: string, city: string }
+    // location: { country: string, city: string }
 }
 
 export type InitialStateType = {
@@ -42,8 +42,8 @@ const usersReducer = (state: InitialStateType = initialState, action: GeneralTyp
     }
 }
 
-export const followAC = (userId: string) => ({type: 'FOLLOW', userId} as const)
-export const unFollowAC = (userId: string) => ({type: 'UNFOLLOW', userId} as const)
+export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unFollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
 export const setUsersAC = (users: UserType[]) => ({type: 'SET-USERS', users} as const)
 
 
