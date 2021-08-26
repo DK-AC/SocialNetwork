@@ -13,19 +13,16 @@ type PropsType = {
 }
 
 export class Users extends React.Component<PropsType> {
-    getUser = () => {
-        if (this.props.userPage.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                this.props.setUsers(response.data.items)
-            })
-        }
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
-    render() {
 
+    render() {
         return (
             <div>
-                <button onClick={this.getUser}>Get users</button>
                 {this.props.userPage.users.map(u => {
                     const followButton = () => this.props.followUser(u.id)
                     const unFollowButton = () => this.props.unFollowUser(u.id)
