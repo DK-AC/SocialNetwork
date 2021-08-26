@@ -13,15 +13,18 @@ type PropsType = {
 }
 
 export const Users = (props: PropsType) => {
-
-    if (props.userPage.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUsers(response.data.items)
-        })
+    const getUser = () => {
+        if (props.userPage.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.setUsers(response.data.items)
+            })
+        }
     }
+
 
     return (
         <div>
+            <button onClick={getUser}>Get users</button>
             {props.userPage.users.map(u => {
 
                 const followButton = () => props.followUser(u.id)
