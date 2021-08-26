@@ -12,25 +12,24 @@ type PropsType = {
 
 }
 
-export const Users = (props: PropsType) => {
-    const getUser = () => {
-        if (props.userPage.users.length === 0) {
+export class Users extends React.Component<PropsType> {
+    getUser = () => {
+        if (this.props.userPage.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                props.setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             })
         }
     }
 
+    render() {
 
-    return (
-        <div>
-            <button onClick={getUser}>Get users</button>
-            {props.userPage.users.map(u => {
-
-                const followButton = () => props.followUser(u.id)
-                const unFollowButton = () => props.unFollowUser(u.id)
-
-                return (<div key={u.id}>
+        return (
+            <div>
+                <button onClick={this.getUser}>Get users</button>
+                {this.props.userPage.users.map(u => {
+                    const followButton = () => this.props.followUser(u.id)
+                    const unFollowButton = () => this.props.unFollowUser(u.id)
+                    return (<div key={u.id}>
                    <span>
                        <div>
                            <img src={u.photos.small ? u.photos.small : userImg}
@@ -45,7 +44,7 @@ export const Users = (props: PropsType) => {
                            }
                        </div>
                    </span>
-                    <span>
+                        <span>
                        <span>
                            <div>{u.name}</div>
                            <div>{u.status}</div>
@@ -55,9 +54,10 @@ export const Users = (props: PropsType) => {
                            <div>{'u.location.city'}</div>
                        </span>
                    </span>
-                </div>)
-            })}
-        </div>
-    )
+                    </div>)
+                })}
+            </div>
+        )
+    }
 }
 
