@@ -71,7 +71,6 @@ export let store: StoreType = {
         return this._state
     },
     _render() {
-        console.log('render')
     },
     subscribe(observer: (state: RootStateType) => void) {
         this._render = observer
