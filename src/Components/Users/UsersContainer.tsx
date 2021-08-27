@@ -69,6 +69,7 @@ class UsersAPIContainer extends React.Component<PropsType> {
                    followUser={this.props.followUser}
                    unFollowUser={this.props.unFollowUser}
                    onPageChanged={this.onPageChanged}
+                   currentPage={this.props.currentPage}
             />
         </>
     }
