@@ -29,7 +29,7 @@ type PropsType = {
     setToggleIsFetching: (isFetching: boolean) => void
 }
 
-class UsersContainer extends React.Component<PropsType> {
+class UsersAPIContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         {
@@ -102,7 +102,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
+export const UsersContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps,
     {
         follow,
         unFollow,
@@ -111,4 +111,4 @@ export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppState
         setTotalUsersCount,
         setToggleIsFetching,
     }
-)(UsersContainer)
+)(UsersAPIContainer)

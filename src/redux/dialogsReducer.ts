@@ -77,8 +77,8 @@ const dialogsReducer = (state: MessagesPageType = initialState, action: GeneralT
     }
 }
 
-export const addMessageAC = (postMessage: string) => ({type: "ADD-MESSAGE", postMessage} as const)
-export const addNewPostMessageAC = (messageText: string) => (
+export const addMessage = (postMessage: string) => ({type: "ADD-MESSAGE", postMessage} as const)
+export const addNewPostMessage = (messageText: string) => (
     {type: "ADD-NEW-MESSAGE-TEXT", messageText} as const)
 
 

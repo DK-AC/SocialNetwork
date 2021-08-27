@@ -10,8 +10,8 @@ type PropsType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     newMessageText: string
-    addNewMessage: (postMessage:string) => void
-    updateNewPostMessage: (message: string) => void
+    addMessage: (postMessage: string) => void
+    addNewPostMessage: (message: string) => void
 }
 
 export function Dialogs(props: PropsType) {
@@ -28,11 +28,11 @@ export function Dialogs(props: PropsType) {
         //Удаляю пробелы
         const trimMessage = props.newMessageText.trim()
         if (trimMessage) {
-            props.addNewMessage(props.newMessageText)
+            props.addMessage(props.newMessageText)
         } else {
             setError(true)
         }
-        props.updateNewPostMessage('')
+        props.addNewPostMessage('')
     }
 
     //если в инпут ни чего не ввели выведу ошибку
@@ -54,7 +54,7 @@ export function Dialogs(props: PropsType) {
                         setError={setError}
                         newMessageText={props.newMessageText}
                         addNewMessage={onAddNewMessage}
-                        updateNewPostMessage={props.updateNewPostMessage}
+                        updateNewPostMessage={props.addNewPostMessage}
                     />
                 </div>
                 <div>
