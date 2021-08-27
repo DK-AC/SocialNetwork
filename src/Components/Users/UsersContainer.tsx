@@ -1,7 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Users} from "./Users";
 import {
     followAC,
     InitialStateType,
@@ -12,6 +11,49 @@ import {
     UserType
 } from "../../redux/usersReducer";
 import {Dispatch} from "redux";
+import axios from "axios";
+import {Users} from "./Users";
+
+type PropsType = {
+    userPage: InitialStateType
+    followUser: (userId: number) => void
+    unFollowUser: (userId: number) => void
+    setUsers: (users: UserType[]) => void
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
+}
+
+class UsersAPIContainer extends React.Component<PropsType> {
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+    render() {
+        return <Users totalUsersCount={this.props.totalUsersCount}
+                      pageSize={this.props.pageSize}
+                      userPage={this.props.userPage}
+                      followUser={this.props.followUser}
+                      unFollowUser={this.props.unFollowUser}
+                      onPageChanged={this.onPageChanged}
+        />
+    }
+}
 
 type MapStateToPropsType = {
     userPage: InitialStateType
@@ -57,4 +99,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-export const UsersContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
