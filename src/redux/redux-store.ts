@@ -3,12 +3,12 @@ import profileReducer, {addNewPostTextAC, addPostAC, ProfilePageType} from "./pr
 import dialogsReducer, {addMessageAC, addNewPostMessageAC, MessagesPageType} from "./dialogsReducer";
 import sidebarReducer, {SidebarPageType} from "./sidebarReducer";
 import usersReducer, {
-    followAC,
-    setCurrentPageAC,
-    setToggleIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unFollowAC
+    follow,
+    setCurrentPage,
+    setToggleIsFetching,
+    setTotalUsersCount,
+    setUsers,
+    unFollow
 } from "./usersReducer";
 
 export type RootStateType = {
@@ -30,12 +30,12 @@ export type GeneralTypes =
     | ReturnType<typeof addNewPostTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addNewPostMessageAC>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof setToggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof setToggleIsFetching>
 
 let reducer = combineReducers({
         profileReducer,
