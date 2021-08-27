@@ -10,6 +10,7 @@ type PropsType = {
     followUser: (userId: number) => void
     unFollowUser: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
+
 }
 
 export const Users = (props: PropsType) => {

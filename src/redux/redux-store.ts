@@ -2,7 +2,14 @@ import {combineReducers, createStore} from "redux";
 import profileReducer, {addNewPostTextAC, addPostAC, ProfilePageType} from "./profileReducer";
 import dialogsReducer, {addMessageAC, addNewPostMessageAC, MessagesPageType} from "./dialogsReducer";
 import sidebarReducer, {SidebarPageType} from "./sidebarReducer";
-import usersReducer, {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unFollowAC} from "./usersReducer";
+import usersReducer, {
+    followAC,
+    setCurrentPageAC,
+    setToggleIsFetchingAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    unFollowAC
+} from "./usersReducer";
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -28,6 +35,7 @@ export type GeneralTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof setToggleIsFetchingAC>
 
 let reducer = combineReducers({
         profileReducer,

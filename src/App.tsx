@@ -46,7 +46,7 @@ const App = () => {
                     />
                     <Route path='/users'
                            render={() =>
-                               <UsersContainer/>}
+                               <UsersContainer />}
                     />
                 </div>
             </div>
