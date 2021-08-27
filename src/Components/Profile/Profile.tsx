@@ -7,7 +7,7 @@ export function Profile() {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer/>
+            <MyPostsContainer />
         </div>
     )
 }

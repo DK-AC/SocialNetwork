@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer, {addNewPostTextAC, addPostAC, ProfilePageType} from "./profileReducer";
+import profileReducer, {addNewPost, ProfilePageType, updateNewPostText} from "./profileReducer";
 import dialogsReducer, {addMessageAC, addNewPostMessageAC, MessagesPageType} from "./dialogsReducer";
 import sidebarReducer, {SidebarPageType} from "./sidebarReducer";
 import usersReducer, {
@@ -26,8 +26,8 @@ export type StoreType = {
 }
 
 export type GeneralTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof addNewPostTextAC>
+    ReturnType<typeof addNewPost>
+    | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addNewPostMessageAC>
     | ReturnType<typeof follow>

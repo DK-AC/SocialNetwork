@@ -31,7 +31,7 @@ let initialState = {
 
 const profileReducer = (state: ProfilePageType = initialState, action: GeneralTypes): ProfilePageType => {
     switch (action.type) {
-        case  'ADD-POST':
+        case  'ADD-NEW-POST':
             const newPost: PostsType = {
                 id: v1(),
                 message: action.postMessage,
@@ -40,7 +40,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: GeneralTy
             return {
                 ...state, posts: [...state.posts, newPost]
             }
-        case'ADD-NEW-POST-TEXT':
+        case'UPDATE-NEW-POST-TEXT':
             return {
                 ...state, newPostText: action.postText
             }
@@ -49,7 +49,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: GeneralTy
     }
 }
 
-export const addPostAC = (postMessage: string) => ({type: 'ADD-POST', postMessage} as const)
-export const addNewPostTextAC = (postText: string) => ({type: 'ADD-NEW-POST-TEXT', postText} as const)
+export const addNewPost = (postMessage: string) => ({type: 'ADD-NEW-POST', postMessage} as const)
+export const updateNewPostText = (postText: string) => ({type: 'UPDATE-NEW-POST-TEXT', postText} as const)
 
 export default profileReducer;
