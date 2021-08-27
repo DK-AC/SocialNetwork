@@ -20,7 +20,8 @@ export let store: StoreType = {
                     likesCount: 12,
                 },
             ],
-            newPostText: ''
+            newPostText: '',
+            profile: null
         },
         dialogsPage: {
             dialogs: [

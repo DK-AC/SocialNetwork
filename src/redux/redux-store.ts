@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer, {addNewPost, ProfilePageType, updateNewPostText} from "./profileReducer";
+import profileReducer, {addNewPost, ProfilePageType, setUserProfile, updateNewPostText} from "./profileReducer";
 import dialogsReducer, {addMessage, addNewPostMessage, MessagesPageType} from "./dialogsReducer";
 import sidebarReducer, {SidebarPageType} from "./sidebarReducer";
 import usersReducer, {
@@ -36,6 +36,7 @@ export type GeneralTypes =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setToggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
 let reducer = combineReducers({
         profileReducer,

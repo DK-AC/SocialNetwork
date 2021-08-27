@@ -1,7 +1,17 @@
 import React from "react";
 import styles from './ProfileInfo.module.css'
+import {Preloader} from "../../common/Preloader/Preloader";
 
-export function ProfileInfo() {
+type PropsType = {
+    profile: any
+}
+
+export function ProfileInfo(props: PropsType) {
+
+    if (!props.profile) {
+        return <Preloader/>
+    }
+
     return (
         <div>
             <div>
@@ -10,7 +20,11 @@ export function ProfileInfo() {
                     alt="" width="200" height="300"/>
             </div>
             <div className={styles.descriptionBlock}>
-                ava + description
+                <img src={props.profile.photos.large} alt="photoUser"/>
+                <div>{props.profile.fullName}</div>
+                <div>{`Обо мне: ${props.profile.aboutMe}`}</div>
+                <div> {`vk: ${props.profile.contacts.vk}`}</div>
+                <div>{props.profile.lookingForAJobDescription}</div>
             </div>
         </div>
     )
