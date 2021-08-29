@@ -7,7 +7,7 @@ export type PostsType = {
     likesCount: number
 }
 
-/*export type ProfileInfoType= {
+export type ProfileInfoType = {
     aboutMe: string,
     contacts: {
         facebook: string,
@@ -27,12 +27,12 @@ export type PostsType = {
         small: string,
         large: string
     }
-}*/
+}
 
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
-    profile: any
+    profile?: ProfileInfoType | null
 }
 
 
@@ -80,6 +80,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: GeneralTy
 
 export const addNewPost = (postMessage: string) => ({type: 'ADD-NEW-POST', postMessage} as const)
 export const updateNewPostText = (postText: string) => ({type: 'UPDATE-NEW-POST-TEXT', postText} as const)
-export const setUserProfile = (profile: ProfilePageType) => ({type: 'SET-USER-PROFILE', profile} as const)
+export const setUserProfile = (profile: ProfileInfoType) => ({type: 'SET-USER-PROFILE', profile} as const)
 
 export default profileReducer;
